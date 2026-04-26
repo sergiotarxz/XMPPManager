@@ -28,8 +28,11 @@ sub _get_domains_hash($c) {
 }
 
 sub _get_users( $c, $domain ) {
+	if ($domain =~ /[^.-a-zA-Z]/) {
+		return $c->reply->not_found;
+	}
     open my $fh, '-|', 'sudo', 'prosodyctl', 'shell',
-      "user:list('\Q$domain\E')";
+      "user:list('$domain')";
     my @users = <$fh>;
     for my $user (@users) {
         chomp $user;
@@ -40,6 +43,9 @@ sub _get_users( $c, $domain ) {
 
 sub details($c) {
     my $domain  = $c->param('domain');
+	if ($domain =~ /[^.-a-zA-Z]/) {
+		return $c->reply->not_found;
+	}
     my %domains = $c->_get_domains_hash;
     return $c->reply->not_found if !defined $domains{$domain};
     my @users = $c->_get_users($domain);
@@ -48,6 +54,9 @@ sub details($c) {
 
 sub create_user($c) {
     my $domain  = $c->param('domain');
+	if ($domain =~ /[^.-a-zA-Z]/) {
+		return $c->reply->not_found;
+	}
     my %domains = $c->_get_domains_hash;
     return $c->reply->not_found if !defined $domains{$domain};
     $c->render( domain => $domain );
@@ -55,12 +64,15 @@ sub create_user($c) {
 
 sub create_user_post($c) {
     my $domain   = $c->param('domain');
+	if ($domain =~ /[^.-a-zA-Z]/) {
+		return $c->reply->not_found;
+	}
     my $user     = $c->param('username');
     my $password = $c->param('password');
 	if ($user =~ qr{["&'/:<>@]}) {
 		return $c->render(text => 'Invalid username', status => 400);
 	}
-	system 'sudo', 'prosodyctl', 'shell', "user:create('\Q$user\E\@\Q$domain\E', '\Q$password\E')";
+	system 'sudo', 'prosodyctl', 'shell', "user:create('\Q$user\E\@$domain', '\Q$password\E')";
 	return $c->redirect_to('/domain/'.$domain);
 }
 1;

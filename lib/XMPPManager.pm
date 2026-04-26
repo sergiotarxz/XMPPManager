@@ -40,8 +40,8 @@ sub startup ($self) {
         }
     );
     $after_login->get('/')->to('Domain#list');
-    $after_login->get('/domain/:domain')->to('Domain#details');
-    $after_login->get('/domain/:domain/create-user')->to('Domain#create_user');
-    $after_login->post('/domain/:domain/create-user')->to('Domain#create_user_post');
+    $after_login->get('/domain/#domain')->to('Domain#details');
+    $after_login->get('/domain/#domain/create-user')->to('Domain#create_user');
+    $after_login->post('/domain/#domain/create-user')->to('Domain#create_user_post');
 }
 1;
