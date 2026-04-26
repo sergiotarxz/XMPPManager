@@ -1,0 +1,16 @@
+% layout 'default';
+% my $domain = stash 'domain';
+% my $users = stash 'users';
+<h1>Domain <%=$domain%> Details</h1>
+
+<ul>
+	<li><a href="/domain/<%=$domain%>/create-user">Create new user</a></li>
+</ul>
+
+<ul>
+% if (defined $users) {
+%	for my $user (@$users) {
+		<li><a href="/domain/<%=$domain%>/user/<%=$user%>"><%=$user%></a></li>
+%   }
+% }
+<ul>

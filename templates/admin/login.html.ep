@@ -1,0 +1,6 @@
+<h1>Login into the XMPP Manager</h1>
+<form action="/login" method="POST">
+	<label for="input_username">Username:</label> <input type="text" name="username" id="input_username"/>
+	<label for="input_password">Password:</label> <input type="text" name="password" id="input_password"/>
+	<button type="submit">Submit</button>
+</form>

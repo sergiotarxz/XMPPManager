@@ -1,0 +1,11 @@
+% layout 'default';
+% my $domains = stash 'domains';
+<h1>Domain list</h1>
+
+<ul>
+% if (defined $domains) {
+%	for my $domain (@$domains) {
+		<li><a href="/domain/<%=$domain%>"><%=$domain%></a></li>
+%   }
+% }
+<ul>

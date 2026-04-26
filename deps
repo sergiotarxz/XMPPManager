@@ -1,0 +1,1 @@
+Mojolicious Moo Crypt::Bcrypt DBIx::Auto::Migrate DBIx::Quick Crypt::URandom DBD::SQLite
