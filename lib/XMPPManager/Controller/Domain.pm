@@ -28,7 +28,7 @@ sub _get_domains_hash($c) {
 }
 
 sub _get_users( $c, $domain ) {
-	if ($domain =~ /[^.-a-zA-Z]/) {
+	if ($domain =~ /[^.\-a-zA-Z]/) {
 		return $c->reply->not_found;
 	}
     open my $fh, '-|', 'sudo', 'prosodyctl', 'shell',
@@ -43,7 +43,7 @@ sub _get_users( $c, $domain ) {
 
 sub details($c) {
     my $domain  = $c->param('domain');
-	if ($domain =~ /[^.-a-zA-Z]/) {
+	if ($domain =~ /[^.\-a-zA-Z]/) {
 		return $c->reply->not_found;
 	}
     my %domains = $c->_get_domains_hash;
@@ -54,7 +54,7 @@ sub details($c) {
 
 sub create_user($c) {
     my $domain  = $c->param('domain');
-	if ($domain =~ /[^.-a-zA-Z]/) {
+	if ($domain =~ /[^.\-a-zA-Z]/) {
 		return $c->reply->not_found;
 	}
     my %domains = $c->_get_domains_hash;
@@ -64,7 +64,7 @@ sub create_user($c) {
 
 sub create_user_post($c) {
     my $domain   = $c->param('domain');
-	if ($domain =~ /[^.-a-zA-Z]/) {
+	if ($domain =~ /[^.\-a-zA-Z]/) {
 		return $c->reply->not_found;
 	}
     my $user     = $c->param('username');
