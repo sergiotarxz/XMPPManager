@@ -1,0 +1,15 @@
+<h1>User <%=$username%>@<%=$domain%></h1>
+
+<ul>
+	<li>
+		<form action="/domain/<%=$domain%>/user/<%=$username%>/delete" method="post">
+			<button type="submit">Delete user</button>
+		</form>
+	</li>
+	<li>
+		<form action="/domain/<%=$domain%>/user/<%=$username%>/change-pass" method="post">
+			<label for="input_password">Password:</label> <input type="password" name="password" id="input_password"/>
+			<button type="submit">Change password user</button>
+		</form>
+	</li>
+</ul>

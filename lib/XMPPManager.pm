@@ -41,6 +41,9 @@ sub startup ($self) {
     );
     $after_login->get('/')->to('Domain#list');
     $after_login->get('/domain/#domain')->to('Domain#details');
+    $after_login->get('/domain/#domain/user/:username')->to('Domain#details_user');
+    $after_login->post('/domain/#domain/user/:username/change-pass')->to('Domain#change_pass_user');
+    $after_login->post('/domain/#domain/user/:username/delete')->to('Domain#delete_user');
     $after_login->get('/domain/#domain/create-user')->to('Domain#create_user');
     $after_login->post('/domain/#domain/create-user')->to('Domain#create_user_post');
 }
