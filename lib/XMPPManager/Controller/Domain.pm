@@ -124,8 +124,11 @@ sub create_user_post($c) {
     if ( $username =~ qr{["&'/:<>@]} ) {
         return $c->render( text => 'Invalid username', status => 400 );
     }
+	if ( $password =~ m{["']} ) {
+		return $c->render( text => 'Quote characters are not valid in passwords' );
+	}
     system 'sudo', 'prosodyctl', 'shell',
-      "user:create('\Q$username\E\@$domain', '\Q$password\E')";
+      "user:create('$username\@$domain', '$password')";
     return $c->redirect_to( '/domain/' . $domain );
 }
 1;
